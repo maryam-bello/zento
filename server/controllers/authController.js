@@ -6,15 +6,19 @@ const signup = async function(req, res) {
   const { username, email, password } = req.body;
 
   try {
+
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
       return res.status(400).json({message: 'User alreasy exists'});
     }
 
     await createUser(username, email, password);
-    res.status(201).json({message: 'User create successfully'})
+    res.status(201).json({message: 'User created successfully'})
   } catch (error) {
-    res.status(500).json({ message: 'Error creating user', error})
+    res.status(500).json({ message: 'Error creating user', error: error.message})
   }
 }
 
@@ -24,7 +28,7 @@ const login = async function(req, res) {
   try {
     const user = await getUserByEmail(email);
     if (!user) {
-      return res.status(400).json({message : 'Invalid credentials'});
+      return res.status(400).json({message : 'User does not exist'});
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
