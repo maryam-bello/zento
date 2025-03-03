@@ -2,7 +2,21 @@ const mysql = require('../config/database');
 
 const createTask_DB = async function (title, description, category, priority, status, due_date, userId) {
   try {
-    const [rows, fields] = await mysql.execute('INSERT INTO tasks (title, description, category, priority, status, due_date, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)', [title, description, category, priority, status, due_date, userId]);
+    const taskData = [
+      title,
+      description || undefined,
+      category || undefined,
+      priority || undefined,
+      status || undefined,
+      due_date || undefined,
+      userId
+    ]
+
+    const placeholders = taskData.map(field => field === undefined ? "NULL" : "?").join(', ');
+
+    const query = `INSERT INTO tasks (title, description, category, priority, status, due_date, user_id) VALUES (${placeholders})`;
+
+    const [rows, fields] = await mysql.execute(query, taskData.filter(field => field !== undefined));
     return rows;
   } catch (error) {
     throw new Error('Error creating task: ' + error.message);
@@ -15,7 +29,7 @@ const getTasks_DB = async function () {
 };
 
 const updateTask_DB = async function (id, title, description, category, priority, status, due_date) {
-  const task = await mysql.execute('UPDATE tasks SET title = ?, description = ?, category = ?, priority = ?, status = ?, due_date = ? WHERE id = ?', [title, description, category, priority, status, due_date, id]);
+  const [result] = await mysql.execute('UPDATE tasks SET title = ?, description = ?, category = ?, priority = ?, status = ?, due_date = ? WHERE id = ?', [title, description, category, priority, status, due_date, id]);
   return result;
 };
 

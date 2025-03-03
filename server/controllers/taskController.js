@@ -10,7 +10,7 @@ const addTask = async function (req, res) {
       return res.status(400).json({message: 'Task needs a title'});
     }
     const result = await createTask_DB(title, description, category, priority, status, due_date, userId);
-    res.status(200).json({message: 'Task created successfully', task: result});
+    res.status(200).json({message: 'Task created successfully', task: result.insertId});
   } catch (error) {
     res.status(500).json({message: 'Error creating task', error: error.message});
   }
