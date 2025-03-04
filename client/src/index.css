@@ -1,0 +1,15 @@
+:root {
+  --color60: white;
+  --color30: #999fd0;
+  --color10: #000F89;
+  --dark: #000636;
+}
+
+html {
+  font-size: 100%; /* This means 1rem = 16px */
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
