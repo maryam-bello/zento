@@ -1,0 +1,45 @@
+.btn {
+  background-color: var(--color10);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 1s ease, transform 0.5s ease;
+  text-align: center;
+}
+
+.btn-link {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.btn:hover {
+  background-color: var(--dark);
+  transform: translateY(-0.1875rem);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn.no-outline {
+  background-color: transparent;
+  border: none;
+}
+
+.no-outline .btn-link {
+  color: var(--color10);
+}
+
+.btn.no-outline:hover {
+  background-color: var(--color10);
+  color: white;
+}
+
+.btn.no-outline:hover .btn-link {
+
+  color: white;
+}
