@@ -23,8 +23,8 @@ const createTask_DB = async function (title, description, category, priority, st
   }
 }
 
-const getTasks_DB = async function () {
-  const [rows] = await mysql.execute('SELECT * FROM tasks');
+const getTasks_DB = async function (userId) {
+  const [rows] = await mysql.execute('SELECT * FROM tasks WHERE user_id =?', [userId]);
   return rows;
 };
 

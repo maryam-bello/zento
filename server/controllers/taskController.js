@@ -16,8 +16,9 @@ const addTask = async function (req, res) {
   }
 }
 const getTasks = async function (req, res) {
+  const userId = req.user.id;
   try {
-    const tasks = await getTasks_DB();
+    const tasks = await getTasks_DB(userId);
     res.status(200).json({message: 'Tasks collected successfully', tasks })
   } catch (error) {
     res.status(500).json({message : 'Error fetching tasks', error})
