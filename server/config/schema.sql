@@ -18,3 +18,7 @@ CREATE TABLE tasks (
   due_date DATE DEFAULT (CURRENT_TIMESTAMP),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+ALTER TABLE tasks (
+  status ENUM('completed', 'pending') DEFAULT 'pending'
+)
